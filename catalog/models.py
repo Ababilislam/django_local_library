@@ -115,7 +115,7 @@ class BookInstance(models.Model):
 
     def get_absolute_url(self):
         """Returns the url to access a particular book instance."""
-        return reverse('bookinstance-detail', args=[str(self.id)])
+        return reverse('book-instance-detail', args=[str(self.id)])
 
     def __str__(self):
         """String for representing the Model object."""
