@@ -54,3 +54,36 @@ class BookListView(generic.ListView):
 class BookDetailView(generic.DetailView):
     model = Book
     template_name = 'book_detail.html'
+
+
+class AuthorListView(generic.ListView):
+    model = Author
+    template_name = 'author_list.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Author.objects.all()  # get 4 book containing dream
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get the context
+        context = super(AuthorListView, self).get_context_data(**kwargs)
+        # Create any data and add it to the context
+        context['some_data'] = 'This is just some data'
+        return context
+
+
+class AuthorDetailView(generic.DetailView):
+    model = Author
+    template_name = 'author_detail.html'
+
+    # def get_queryset(self):
+    #     return Author.objects.all()
+
+    # def get_context_data(self, **kwargs):
+    #     # Call the base implementation first to get the context
+    #     context = super(AuthorDetailView, self).get_context_data(**kwargs)
+    #     # Create any data and add it to the context
+    #     context={
+    #         'Book_details' : Book.objects.all().filter(author_id=self.model.id)
+    #     }
+    #     return context

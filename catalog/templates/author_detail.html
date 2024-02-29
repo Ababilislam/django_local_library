@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Author: {{ author.first_name }}, {{ author.last_name }}</h1>
+    <p>{{ author.date_of_birth }} - {{ author.date_of_death }}</p>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Books</h4>
+{#  from this line code is not working. #}
+         {% if book_list %}
+            <ul>
+              {% for book in book_list %}
+              <li>
+                <a href="#">{{ book.title }}</a>
+                ({{book.author}})
+              </li>
+              {% endfor %}
+            </ul>
+  {% else %}
+{#             till this point #}
+    <p>There are no books in the library.{actually cant print or filter books with the authors}</p>
+  {% endif %}
+  </div>
+{% endblock %}
