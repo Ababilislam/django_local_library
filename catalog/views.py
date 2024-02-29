@@ -87,3 +87,4 @@ class AuthorDetailView(generic.DetailView):
     #         'Book_details' : Book.objects.all().filter(author_id=self.model.id)
     #     }
     #     return context
+    
