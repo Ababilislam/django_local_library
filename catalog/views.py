@@ -19,6 +19,11 @@ def index(request):
     # the all() is implied by default
     num_authors = Author.objects.count()
 
+    # to count number of visitor in a index page
+    num_visits = request.session.get('num_visits',0)
+    request.session['num_visits'] = num_visits+1
+
+    # genra count
     num_genres = Genre.objects.count()
     num_pertcular_books = Book.objects.filter(title='the dream').count()
 
@@ -30,9 +35,13 @@ def index(request):
         'title': title,
         'num_genres': num_genres,
         'num_pertcular_books': num_pertcular_books,
+        'num_visits': num_visits,
     }
+
     # Render the HTML template index.html with the data in the context variable
     return render(request, 'index.html', context=context)
+
+
 
 
 class BookListView(generic.ListView):
@@ -79,11 +88,10 @@ class AuthorDetailView(generic.DetailView):
     # def get_queryset(self):
     #     return Author.objects.all()
 
-    # def get_context_data(self, **kwargs):
-    #     # Call the base implementation first to get the context
-    #     context = super(AuthorDetailView, self).get_context_data(**kwargs)
-    #     # Create any data and add it to the context
-    #     context={
-    #         'Book_details' : Book.objects.all().filter(author_id=self.model.id)
-    #     }
-    #     return context
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get the context
+        context = super(AuthorDetailView, self).get_context_data(**kwargs)
+        # Create any data and add it to the context
+        context['book_list'] = Book.objects.filter(author_id=1)
+        return context
+    
